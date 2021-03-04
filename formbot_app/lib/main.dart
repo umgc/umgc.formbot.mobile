@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:formbot_app/routes/routes.dart';
+import 'help.dart';
 
-import 'package:formbot_app/app_drawer.dart';
+import 'package:formbot_app/widgets/app_drawer.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyApp()
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -25,11 +28,17 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'Form Bot Home Page'),
+      routes: {
+        Routes.help: (context) => HelpPage(),
+      },
+
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  static const String routeName = '/help';
+
   MyHomePage({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -71,9 +80,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       // Select the drawer that is needed
-      //  authDrawer - Authorized Users
-      //  unauthDrawer - Unauthorized Users
-      endDrawer: authDrawer(),
+      //  AuthDrawer - Authorized Users
+      //  UnauthDrawer - Unauthorized Users
+      endDrawer: AuthDrawer(),
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
