@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:formboatapp/conversation.dart';
+import './conversation.dart';
 
 class Homepage extends StatelessWidget {
   Widget build(BuildContext context) {
