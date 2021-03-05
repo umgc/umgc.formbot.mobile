@@ -1,4 +1,4 @@
 
-abstract class BLoC {
+abstract class Bloc {
   void dispose();
 }
