@@ -25,4 +25,12 @@ jobs:
         inputs:
           channel: '$(FlutterChannel)'
           version: '$(FlutterVersion)'
-          
+      - task: PowerShell@2
+        displayName: Setup environment
+        inputs:
+          targetType: 'inline'
+          script: |
+            Write-Host "##vso[task.prependpath]$(JAVA_HOME_11_X64)"
+            Write-Host "##vso[task.setvariable variable=JAVA_HOME;]$(JAVA_HOME_11_X64)"
+            Write-Host "##vso[task.prependpath]$(FlutterToolPath)"
+            Write-Host "##vso[task.prependpath]$(FlutterToolPath)/cache/dart-sdk/bin"
