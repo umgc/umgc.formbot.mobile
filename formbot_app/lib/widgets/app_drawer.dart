@@ -26,7 +26,8 @@ class AuthDrawer extends StatelessWidget{
           _createDrawerItem(icon: Icons.home,text: 'Home'),
           _createDrawerItem(icon: Icons.chat,text: 'Begin Conversation'),
           _createDrawerItem(icon: Icons.receipt, text: 'View Reports'),
-          _createDrawerItem(icon: Icons.settings, text: 'Settings', onTap: () => Navigator.pushReplacementNamed(context, Routes.settings)),
+          _createDrawerItem(icon: Icons.settings, text: 'Settings', onTap: () => Navigator.push(context,
+            MaterialPageRoute(builder: (context) => SettingsPage()),)),
           _createDrawerItem(icon: Icons.help_outline, text: 'Help', onTap: () => Navigator.pushReplacementNamed(context, Routes.help)),
           _createDrawerItem(icon: Icons.logout, text: 'Log Out'),
 
