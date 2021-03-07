@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:formbot_app/widgets/app_drawer.dart';
-import 'package:formbot_app/routes/routes.dart';
-import 'help.dart';
 
+import 'widgets/app_drawer.dart';
+import 'routes/routes.dart';
+import 'homepage.dart';
+import 'help.dart';
+import 'conversation.dart';
 
 void main() {
   runApp(MyApp()
@@ -10,49 +12,41 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Form Scriber',
+
+      // This is the theme of the application.
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
+
+        // This makes the visual density adapt to any platform.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Form Scriber'),
-      routes: {
-        Routes.help: (context) => HelpPage(),
-      },
 
+      //Navigator routes to other pages.
+      routes: {
+        //Routes.landing: (context) => MyHomePage(),
+        Routes.help: (context) => HelpPage(),
+        Routes.page2: (context) => HomePage(),
+        Routes.conversation: (context) => ConversationPage()
+      },
     );
   }
 }
 
+// This widget is the home page of the application. It is stateful.
 class MyHomePage extends StatefulWidget {
-  static const String routeName = '/help';
+  //Navigator route name.
+  //static const String routeName = 'landing';
 
+  // This class is the configuration for the state.
+  // It holds the values provided by the parent and
+  // used by the build method of the State.
   MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -61,27 +55,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // This method is rerun every time setState is called.
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       // Select the drawer that is needed
       //  AuthDrawer - Authorized Users
       //  UnauthDrawer - Unauthorized Users
       endDrawer: AuthDrawer(),
+
+      // Set appbar title from the value of title in MyHomePage object that was
+      // created by the App.build method.
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
+
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
@@ -92,8 +81,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(height: 30, width: 10.0,),
 
+            // Login Button
             RaisedButton(
-              onPressed: () => {Navigator.pushReplacementNamed(context, Routes.page2)},
+              onPressed: () => {Navigator.pushNamed(context, Routes.page2)},
               shape: const StadiumBorder(),
               textColor: Colors.white,
               padding: const EdgeInsets.all(0.0),
@@ -113,28 +103,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(height: 30),
 
+            // Help Button
             RaisedButton(
-              onPressed: () {},
-              textColor: Colors.white,
-              padding: const EdgeInsets.all(0.0),
-              child: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: <Color>[
-                      Color(0xFF0D47A1),
-                      Color(0xFF1976D2),
-                      Color(0xFF42A5F5),
-                    ],
-                  ),
-                ),
-                padding: const EdgeInsets.all(12.0),
-                child: const Text('Sign up', style: TextStyle(fontSize: 20)),
-              ),
-            ),
-            const SizedBox(height: 30),
-
-            RaisedButton(
-              onPressed: () => {Navigator.pushReplacementNamed(context, Routes.help)},
+              onPressed: () => {Navigator.pushNamed(context, Routes.help)},
               textColor: Colors.white,
               padding: const EdgeInsets.all(0.0),
               child: Container(
@@ -159,7 +130,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class MainPage extends StatelessWidget {
+// Main Page
+/*class MainPage extends StatelessWidget {
   static const String routeName = 'page2';
 
   @override
@@ -171,4 +143,4 @@ class MainPage extends StatelessWidget {
         endDrawer: AuthDrawer(),
         body: Center(child: Text("Main Menu")));
   }
-}
+}*/
