@@ -1,9 +1,12 @@
 //import 'package:flutter/material.dart';
 //import 'package: lib/help.dart';
 import 'package:formbot_app/help.dart';
+import 'package:formbot_app/main.dart';
 
 class Routes{
   static const String help = HelpPage.routeName;
+  static const String landing = MyHomePage.routeName;
+  static const String page2 = MainPage.routeName;
   //static const String settings = SettingsPage.routeName;
   //static const String reports = ReportsPage.routeName;
   //static const String chat = ChatPage.routeName;
