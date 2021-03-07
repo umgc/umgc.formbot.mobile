@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:formbot_app/widgets/app_drawer.dart';
 import 'package:formbot_app/routes/routes.dart';
 import 'help.dart';
 
-import 'package:formbot_app/widgets/app_drawer.dart';
 
 void main() {
   runApp(MyApp()
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Form Bot',
+      title: 'Form Scriber',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -26,8 +26,12 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
+        // This makes the visual density adapt to the platform that you run
+        // the app on. For desktop platforms, the controls will be smaller and
+        // closer together (more dense) than on mobile platforms.
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Form Bot Home Page'),
+      home: MyHomePage(title: 'Form Scriber'),
       routes: {
         Routes.help: (context) => HelpPage(),
       },
@@ -57,19 +61,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -92,37 +83,92 @@ class _MyHomePageState extends State<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            Text(
-              'Welcome to Form Bot! You have pushed the button this many times:',
+            Image.asset('images/cover.png'),
+            new Text('Login with your Google credentials to get started.',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold,),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            const SizedBox(height: 30, width: 10.0,),
+
+            RaisedButton(
+              onPressed: () => {Navigator.pushReplacementNamed(context, Routes.page2)},
+              shape: const StadiumBorder(),
+              textColor: Colors.white,
+              padding: const EdgeInsets.all(0.0),
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: <Color>[
+                      Color(0xFF0D47A1),
+                      Color(0xFF1976D2),
+                      Color(0xFF42A5F5),
+                    ],
+                  ),
+                ),
+                padding: const EdgeInsets.all(12.0),
+                child: const Text('  Login  ', style: TextStyle(fontSize: 20)),
+              ),
+            ),
+            const SizedBox(height: 30),
+
+            RaisedButton(
+              onPressed: () {},
+              textColor: Colors.white,
+              padding: const EdgeInsets.all(0.0),
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: <Color>[
+                      Color(0xFF0D47A1),
+                      Color(0xFF1976D2),
+                      Color(0xFF42A5F5),
+                    ],
+                  ),
+                ),
+                padding: const EdgeInsets.all(12.0),
+                child: const Text('Sign up', style: TextStyle(fontSize: 20)),
+              ),
+            ),
+            const SizedBox(height: 30),
+
+            RaisedButton(
+              onPressed: () => {Navigator.pushReplacementNamed(context, Routes.help)},
+              textColor: Colors.white,
+              padding: const EdgeInsets.all(0.0),
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: <Color>[
+                      Color(0xFF0D47A1),
+                      Color(0xFF1976D2),
+                      Color(0xFF42A5F5),
+                    ],
+                  ),
+                ),
+                padding: const EdgeInsets.all(10.0),
+                child:
+                const Text('   Help   ', style: TextStyle(fontSize: 20)),
+              ),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+}
+
+class MainPage extends StatelessWidget {
+  static const String routeName = 'page2';
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+        appBar: AppBar(
+          title: Text("Main Menu"),
+        ),
+        endDrawer: AuthDrawer(),
+        body: Center(child: Text("Main Menu")));
   }
 }
