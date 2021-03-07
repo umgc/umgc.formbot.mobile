@@ -17,7 +17,7 @@ class AuthDrawer extends StatelessWidget{
               decoration: BoxDecoration(
                   color: Colors.white,
                   image: DecorationImage(
-                      image: AssetImage("images/cover-icon.png"),
+                      image: AssetImage("assets/images/cover-icon.png"),
                       fit: BoxFit.contain)),
             ),
           ),
@@ -49,7 +49,7 @@ class UnauthDrawer extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Colors.white,
                   image: DecorationImage(
-                      image: AssetImage("images/cover-icon.png"),
+                      image: AssetImage("assets/images/cover-icon.png"),
                       fit: BoxFit.contain)),
             ),
           ),

@@ -55,7 +55,7 @@ class _ConversationPageState extends State<ConversationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('Conversation'),
       ),
       body: Column(
         children: [

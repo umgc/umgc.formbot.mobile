@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            Image.asset('images/cover.png'),
+            Image.asset('assets/images/cover.png'),
             new Text('Login with your Google credentials to get started.',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold,),

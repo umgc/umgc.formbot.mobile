@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
           title: Row(
             children: <Widget>[
               Image.asset(
-                'images/cover-icon.png',
+                'assets/images/cover-icon.png',
                 height: 55,
               ),
               SizedBox(
