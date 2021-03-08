@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:formbot_app/routes/routes.dart';
 
 class AuthDrawer extends StatelessWidget{
@@ -16,16 +17,16 @@ class AuthDrawer extends StatelessWidget{
               decoration: BoxDecoration(
                   color: Colors.white,
                   image: DecorationImage(
-                      image: AssetImage("images/cover-icon.png"),
+                      image: AssetImage("assets/images/cover-icon.png"),
                       fit: BoxFit.contain)),
             ),
           ),
           // use _createDrawerItem instead of listing each tile
-          _createDrawerItem(icon: Icons.home,text: 'Home'),
-          _createDrawerItem(icon: Icons.chat,text: 'Begin Conversation'),
+          _createDrawerItem(icon: Icons.home,text: 'Home', onTap: () => Navigator.pushNamed(context, Routes.page2)),
+          _createDrawerItem(icon: Icons.chat,text: 'Begin Conversation', onTap: () => Navigator.pushNamed(context, Routes.conversation)),
           _createDrawerItem(icon: Icons.receipt, text: 'View Reports'),
           _createDrawerItem(icon: Icons.settings, text: 'Settings'),
-          _createDrawerItem(icon: Icons.help_outline, text: 'Help', onTap: () => Navigator.pushReplacementNamed(context, Routes.help)),
+          _createDrawerItem(icon: Icons.help_outline, text: 'Help', onTap: () => Navigator.pushNamed(context, Routes.help)),
           _createDrawerItem(icon: Icons.logout, text: 'Log Out'),
 
         ],
@@ -48,14 +49,14 @@ class UnauthDrawer extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Colors.white,
                   image: DecorationImage(
-                      image: AssetImage("images/cover-icon.png"),
+                      image: AssetImage("assets/images/cover-icon.png"),
                       fit: BoxFit.contain)),
             ),
           ),
           _createDrawerItem(icon: Icons.home,text: 'Home'),
           _createDrawerItem(icon: Icons.app_registration,text: 'Sign Up'),
           _createDrawerItem(icon: Icons.chat,text: 'Log In'),
-          _createDrawerItem(icon: Icons.help_outline, text: 'Help', onTap: () => Navigator.pushReplacementNamed(context, Routes.help)),/*ListTile(
+          _createDrawerItem(icon: Icons.help_outline, text: 'Help', onTap: () => Navigator.pushNamed(context, Routes.help)),/*ListTile(
           leading: Icon(Icons.home),
           title: Text('Home'),
           onTap: () => {},
