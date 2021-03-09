@@ -15,9 +15,11 @@ class AuthDrawer extends StatelessWidget{
               height: 300,
               width: 300,
               decoration: BoxDecoration(
-                  color: Colors.white,
+                color: Colors.white,
+                  // color: Colors.black,
                   image: DecorationImage(
                       image: AssetImage("assets/images/cover-icon.png"),
+                      //image: AssetImage("assets/images/cover-icon-new.png"),
                       fit: BoxFit.contain)),
             ),
           ),
@@ -48,13 +50,15 @@ class UnauthDrawer extends StatelessWidget {
               width: 300,
               decoration: BoxDecoration(
                   color: Colors.white,
+                  // color: Colors.black,
                   image: DecorationImage(
                       image: AssetImage("assets/images/cover-icon.png"),
+                      //image: AssetImage("assets/images/cover-icon-new.png"),
                       fit: BoxFit.contain)),
             ),
           ),
-          _createDrawerItem(icon: Icons.home,text: 'Home'),
-          _createDrawerItem(icon: Icons.app_registration,text: 'Sign Up'),
+          _createDrawerItem(icon: Icons.home,text: 'Home', onTap: () => Navigator.pushNamed(context, Routes.page2)),
+          //_createDrawerItem(icon: Icons.app_registration,text: 'Sign Up'),
           _createDrawerItem(icon: Icons.chat,text: 'Log In'),
           _createDrawerItem(icon: Icons.help_outline, text: 'Help', onTap: () => Navigator.pushNamed(context, Routes.help)),/*ListTile(
           leading: Icon(Icons.home),
