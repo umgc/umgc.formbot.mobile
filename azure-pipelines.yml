@@ -1,3 +1,4 @@
+name: $(Date:yyyyMMdd)$(Rev:r)
 variables:
   projectDirectory: 'formbot_app'
 
@@ -12,8 +13,7 @@ jobs:
       - task: FlutterInstall@0
         inputs:
           channel: 'stable'
-          version: 'custom'
-          customVersion: '1.17.5'
+          version: 'latest'
       - task: FlutterBuild@0
         inputs:
           target: apk
