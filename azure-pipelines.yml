@@ -18,3 +18,10 @@ jobs:
         inputs:
           target: apk
           projectDirectory: $(projectDirectory)
+      - task: FlutterTest@0
+        inputs: $(projectDirectory)
+      - task: CopyFiles@2
+        inputs:
+          Contents: '**/*.apk'
+          TargetFolder: '$(build.artifactStagingDirectory)'
+      - task: PublishBuildArtifacts@1
