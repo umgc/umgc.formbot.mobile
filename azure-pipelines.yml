@@ -6,7 +6,7 @@ trigger:
 - master
 
 jobs:
-  - job: Android
+  - job: Flutter
     pool: 
       vmImage: 'macOS-latest'
     steps:
