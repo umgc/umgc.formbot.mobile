@@ -19,7 +19,8 @@ jobs:
           target: apk
           projectDirectory: $(projectDirectory)
       - task: FlutterTest@0
-        inputs: $(projectDirectory)
+        inputs:
+         projectDirectory: $(projectDirectory)
       - task: CopyFiles@2
         inputs:
           Contents: '**/*.apk'
