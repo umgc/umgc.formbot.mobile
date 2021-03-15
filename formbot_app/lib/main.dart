@@ -129,18 +129,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-// Main Page
-/*class MainPage extends StatelessWidget {
-  static const String routeName = 'page2';
-
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: AppBar(
-          title: Text("Main Menu"),
-        ),
-        endDrawer: AuthDrawer(),
-        body: Center(child: Text("Main Menu")));
-  }
-}*/

@@ -24,7 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
   dialog_flowtter: ^0.2.0
-
+  speech_to_text: ^2.3.0
+  speech_recognition: ^0.3.0+1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
