@@ -11,17 +11,21 @@ jobs:
       vmImage: 'macOS-latest'
     steps:
       - task: FlutterInstall@0
+        displayName: 'Install Flutter Tools'
         inputs:
           channel: 'stable'
           version: 'latest'
       - task: FlutterBuild@0
+        displayName: 'Build Flutter'
         inputs:
           target: apk
           projectDirectory: $(projectDirectory)
       - task: FlutterTest@0
+        displayName: 'Unit Test Flutter'
         inputs:
          projectDirectory: $(projectDirectory)
       - task: CopyFiles@2
+        displayName: 'Publish Artifacts'
         inputs:
           Contents: '**/*.apk'
           TargetFolder: '$(build.artifactStagingDirectory)'
