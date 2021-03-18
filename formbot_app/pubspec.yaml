@@ -15,16 +15,24 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 3.0.0+3
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.7.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  dialog_flowtter: ^0.2.0
-  speech_to_text: ^3.1.0
+#  dialog_flowtter: ^0.2.0
+  dialogflow_grpc: ^0.2.6
+#  speech_to_text: 2.3.0
+  googleapis: any
+  google_sign_in: any
+  firebase_core: any
+  firebase_auth: any
+#  flutterfire/packages/firebase_core/firebase_core/lib/firebase_core.dart:
+#  flutterfire/packages/firebase_auth/firebase_auth/lib/firebase_auth.dart:
+#  flutterplugins/packages/google_sign_in/google_sign_in/lib/google_sign_in.dart:
 
   # The following adds the Cupertino Icons font for iOS style icons to your application.
   cupertino_icons: ^1.0.2
@@ -32,7 +40,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  integration_test: ^1.0.2+2
+#  integration_test: any
 
 # The following section is specific to Flutter.
 flutter:
@@ -43,7 +51,8 @@ flutter:
   # The following section adds assets to your application
   assets:
     - assets/images/
-    - assets/dialog_flow_auth.json
+    - assets/credentials.json
+#    - assets/dialog_flow_auth.json
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

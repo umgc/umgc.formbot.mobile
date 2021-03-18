@@ -4,7 +4,11 @@ import 'widgets/app_drawer.dart';
 import 'routes/routes.dart';
 import 'homepage.dart';
 import 'help.dart';
-import 'conversation.dart';
+import 'chat.dart';
+import 'package:googleapis/drive/v3.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'auth.dart';
 
 void main() {
   runApp(MyApp()
@@ -32,7 +36,7 @@ class MyApp extends StatelessWidget {
         //Routes.landing: (context) => MyHomePage(),
         Routes.help: (context) => HelpPage(),
         Routes.page2: (context) => HomePage(),
-        Routes.conversation: (context) => ConversationPage()
+        Routes.conversation: (context) => Chat()
       },
     );
   }
@@ -55,9 +59,46 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String _currentUser;
+
+  Future<void> _handleSignIn() async {
+    var account = await AuthManager.signIn();
+    if (account != null) {
+      Navigator.pushReplacementNamed(context, Routes.page2);
+    }
+  }
+
+  Future<void> _signInSilently() async {
+    var account = await AuthManager.signInSilently();
+    if (account != null) {
+      Navigator.pushReplacementNamed(context, Routes.page2);
+    }
+  }
+
+  _logout() {
+    setState(() {
+      _currentUser = null;
+    });
+    AuthManager.signOut();
+    Navigator.pushReplacementNamed(context, Routes.help);
+  }
+
   // This method is rerun every time setState is called.
   @override
   Widget build(BuildContext context) {
+
+    ElevatedButton logInButton = ElevatedButton(
+        onPressed: _handleSignIn,
+        child: Text('Log In')
+    );
+
+    ElevatedButton helpButton = ElevatedButton(
+        onPressed: (){
+          _logout();
+        },
+        child: Text('Help')
+    );
+
     return Scaffold(
       // Select the drawer that is needed
       //  AuthDrawer - Authorized Users
@@ -80,49 +121,8 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold,),
             ),
             const SizedBox(height: 30, width: 10.0,),
-
-            // Login Button
-            RaisedButton(
-              onPressed: () => {Navigator.pushNamed(context, Routes.page2)},
-              shape: const StadiumBorder(),
-              textColor: Colors.white,
-              padding: const EdgeInsets.all(0.0),
-              child: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: <Color>[
-                      Color(0xFF0D47A1),
-                      Color(0xFF1976D2),
-                      Color(0xFF42A5F5),
-                    ],
-                  ),
-                ),
-                padding: const EdgeInsets.all(12.0),
-                child: const Text('  Login  ', style: TextStyle(fontSize: 20)),
-              ),
-            ),
-            const SizedBox(height: 30),
-
-            // Help Button
-            RaisedButton(
-              onPressed: () => {Navigator.pushNamed(context, Routes.help)},
-              textColor: Colors.white,
-              padding: const EdgeInsets.all(0.0),
-              child: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: <Color>[
-                      Color(0xFF0D47A1),
-                      Color(0xFF1976D2),
-                      Color(0xFF42A5F5),
-                    ],
-                  ),
-                ),
-                padding: const EdgeInsets.all(10.0),
-                child:
-                const Text('   Help   ', style: TextStyle(fontSize: 20)),
-              ),
-            ),
+            logInButton,
+            helpButton,
           ],
         ),
       ),
