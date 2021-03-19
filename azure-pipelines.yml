@@ -20,13 +20,14 @@ jobs:
         inputs:
           target: apk
           projectDirectory: $(projectDirectory)
-      - task: FlutterTest@0
-        displayName: 'Unit Test Flutter'
-        inputs:
-         projectDirectory: $(projectDirectory)
+# commenting out test task until unit tests are developed
+#      - task: FlutterTest@0
+#        displayName: 'Unit Test Flutter'
+#        inputs:
+#         projectDirectory: $(projectDirectory)
       - task: CopyFiles@2
         displayName: 'Publish Artifacts'
         inputs:
           Contents: '**/*.apk'
           TargetFolder: '$(build.artifactStagingDirectory)'
-      - task: PublishBuildArtifacts@1
+        condition: succeededOrFailed()
