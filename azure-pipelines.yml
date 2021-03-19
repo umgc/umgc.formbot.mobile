@@ -26,8 +26,14 @@ jobs:
 #        inputs:
 #         projectDirectory: $(projectDirectory)
       - task: CopyFiles@2
-        displayName: 'Publish Artifacts'
+        displayName: 'Copy Artifiacts'
         inputs:
           Contents: '**/*.apk'
           TargetFolder: '$(build.artifactStagingDirectory)'
+        condition: succeededOrFailed()
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifacts'
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: 'drop'
         condition: succeededOrFailed()
