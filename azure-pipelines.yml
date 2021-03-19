@@ -29,3 +29,4 @@ jobs:
         inputs:
           Contents: '**/*.apk'
           TargetFolder: '$(build.artifactStagingDirectory)'
+        condition: succeededOrFailed()
