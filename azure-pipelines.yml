@@ -20,6 +20,7 @@ jobs:
         inputs:
           target: apk
           projectDirectory: $(projectDirectory)
+# commenting out test task until unit tests are developed
 #      - task: FlutterTest@0
 #        displayName: 'Unit Test Flutter'
 #        inputs:
