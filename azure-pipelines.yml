@@ -20,10 +20,10 @@ jobs:
         inputs:
           target: apk
           projectDirectory: $(projectDirectory)
-      - task: FlutterTest@0
-        displayName: 'Unit Test Flutter'
-        inputs:
-         projectDirectory: $(projectDirectory)
+#      - task: FlutterTest@0
+#        displayName: 'Unit Test Flutter'
+#        inputs:
+#         projectDirectory: $(projectDirectory)
       - task: CopyFiles@2
         displayName: 'Publish Artifacts'
         inputs:
