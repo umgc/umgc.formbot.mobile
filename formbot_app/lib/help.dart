@@ -23,7 +23,7 @@ class HelpPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Help"),
       ),
-      endDrawer: UnauthDrawer(),
+      endDrawer: AuthDrawer(),
       body: Center(
         child: Column(
           children: <Widget>[
