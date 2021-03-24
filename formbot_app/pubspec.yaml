@@ -34,6 +34,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   integration_test: ^1.0.2+2
+  webview_flutter: ^2.0.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -53,6 +54,7 @@ flutter:
   assets:
     - assets/images/
     - assets/dialog_flow_auth.json
+    - assets/files/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -79,3 +81,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+

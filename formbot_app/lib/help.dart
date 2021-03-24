@@ -1,44 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'dart:convert';
+import 'package:webview_flutter/webview_flutter.dart';
 
-import 'widgets/app_drawer.dart';
-
-class HelpPage extends StatelessWidget {
+class HelpPage extends StatefulWidget {
   static const String routeName = 'help';
 
   @override
-  Widget build(BuildContext context) {
-
-    Future<bool> _willPopCallback() async {
-      Navigator.pushNamedAndRemoveUntil(
-          context,
-          routeName,
-          ModalRoute.withName("/")
-      );
-      return false; // return true if the route to be popped
-    }
-
-    new WillPopScope(child: new Scaffold(), onWillPop: _willPopCallback);
-
-    return new Scaffold(
-      appBar: AppBar(
-        title: Text("Help"),
-      ),
-      endDrawer: UnauthDrawer(),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            Text("Help"
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Back'),
-            ),
-          ]
-        )
-      )
-    );
+  State<StatefulWidget> createState() {
+    return _HelpPageState();
   }
 }
 
+class _HelpPageState extends State<HelpPage> {
+  //
+  WebViewController _webViewController;
+  String filePath = 'assets/files/help.html';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Help')),
+      body: WebView(
+        initialUrl: 'https://duchesam.github.io/HelpPage/help.html',
+        javascriptMode: JavascriptMode.unrestricted,
+
+      )
+    );
+  }
+
+  _loadHtmlFromAssets() async {
+    String fileHtmlContents = await rootBundle.loadString(filePath);
+     _webViewController.loadUrl(Uri.dataFromString(fileHtmlContents,
+             mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
+         .toString());
+
+    _webViewController.loadUrl("http://google.com");
+    
+
+  }
+}
