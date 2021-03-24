@@ -1,12 +1,45 @@
 import 'package:flutter/material.dart';
 
 import 'package:formbot_app/routes/routes.dart';
+import 'package:formbot_app/auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthDrawer extends StatelessWidget{
+class AuthDrawer extends StatefulWidget {
+  AuthDrawer({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context)
-  {
+  _AuthDrawerState createState() => _AuthDrawerState();
+}
+
+class _AuthDrawerState extends State<AuthDrawer>{
+  GoogleSignInAccount _currentUser;
+  String _email;
+
+  @override
+  void initState() {
+    super.initState();
+    _signInSilently();
+  }
+
+  Future<void> _signInSilently() async {
+    var account = await AuthManager.signInSilently();
+    setState(() {
+      _currentUser = account;
+      _email = _currentUser.email;
+    });
+  }
+
+  void _logout() {
+    setState(() {
+      _currentUser = null;
+    });
+    AuthManager.signOut();
+    Navigator.popUntil(context, ModalRoute.withName('/'));
+  }
+
+  @override
+  Widget build(BuildContext context){
+    final loggedIn = _currentUser != null;
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -24,12 +57,13 @@ class AuthDrawer extends StatelessWidget{
             ),
           ),
           // use _createDrawerItem instead of listing each tile
+          _createDrawerItem(icon: Icons.verified_user, text: '{$_email}'),
           _createDrawerItem(icon: Icons.home,text: 'Home', onTap: () => Navigator.pushNamed(context, Routes.page2)),
           _createDrawerItem(icon: Icons.chat,text: 'Begin Conversation', onTap: () => Navigator.pushNamed(context, Routes.conversation)),
           _createDrawerItem(icon: Icons.receipt, text: 'View Reports'),
           _createDrawerItem(icon: Icons.settings, text: 'Settings'),
           _createDrawerItem(icon: Icons.help_outline, text: 'Help', onTap: () => Navigator.pushNamed(context, Routes.help)),
-          _createDrawerItem(icon: Icons.logout, text: 'Log Out'),
+          _createDrawerItem(icon: Icons.logout, text: 'Log Out', onTap: () => _logout()),
 
         ],
       ),
