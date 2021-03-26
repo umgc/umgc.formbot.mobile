@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      key: Key('app'),
       title: 'Form Scriber',
 
       // This is the theme of the application.
@@ -76,11 +77,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _logout() {
-    setState(() {
-      _currentUser = null;
-    });
-    AuthManager.signOut();
-    Navigator.pushReplacementNamed(context, Routes.help);
+    // setState(() {
+    //   _currentUser = null;
+    // });
+    // AuthManager.signOut();
+    Navigator.pushNamed(context, Routes.help);
   }
 
   // This method is rerun every time setState is called.
@@ -88,11 +89,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     ElevatedButton logInButton = ElevatedButton(
+        key: Key('login_btn'),
         onPressed: _handleSignIn,
         child: Text('Log In')
     );
 
     ElevatedButton helpButton = ElevatedButton(
+       key: Key('help_btn'),
         onPressed: (){
           _logout();
         },

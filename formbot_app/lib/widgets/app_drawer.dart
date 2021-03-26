@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:formbot_app/routes/routes.dart';
 import 'package:formbot_app/auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -41,6 +40,7 @@ class _AuthDrawerState extends State<AuthDrawer>{
   Widget build(BuildContext context){
     final loggedIn = _currentUser != null;
     return Drawer(
+      key: Key('drawer'),
       child: Column(
         children: <Widget>[
           DrawerHeader(
@@ -58,8 +58,8 @@ class _AuthDrawerState extends State<AuthDrawer>{
           ),
           // use _createDrawerItem instead of listing each tile
           _createDrawerItem(icon: Icons.verified_user, text: '{$_email}'),
-          _createDrawerItem(icon: Icons.home,text: 'Home', onTap: () => Navigator.pushNamed(context, Routes.page2)),
-          _createDrawerItem(icon: Icons.chat,text: 'Begin Conversation', onTap: () => Navigator.pushNamed(context, Routes.conversation)),
+          _createDrawerItem(icon: Icons.home,text: 'Home',  uniqueKey: Key("drawerHome"),onTap: () => Navigator.pushNamed(context, Routes.page2)),
+          _createDrawerItem(icon: Icons.chat,text: 'Begin Conversation', uniqueKey: Key("begin_conversation_tile"), onTap: () => Navigator.pushNamed(context, Routes.conversation)),
           _createDrawerItem(icon: Icons.receipt, text: 'View Reports'),
           _createDrawerItem(icon: Icons.settings, text: 'Settings'),
           _createDrawerItem(icon: Icons.help_outline, text: 'Help', onTap: () => Navigator.pushNamed(context, Routes.help)),
@@ -91,7 +91,9 @@ class UnauthDrawer extends StatelessWidget {
                       fit: BoxFit.contain)),
             ),
           ),
-          _createDrawerItem(icon: Icons.home,text: 'Home', onTap: () => Navigator.pushNamed(context, Routes.page2)),
+          _createDrawerItem(
+            uniqueKey: Key("drawerHome"),
+            icon: Icons.home,text: 'Home', onTap: () => Navigator.pushNamed(context, Routes.page2)),
           //_createDrawerItem(icon: Icons.app_registration,text: 'Sign Up'),
           _createDrawerItem(icon: Icons.chat,text: 'Log In'),
           _createDrawerItem(icon: Icons.help_outline, text: 'Help', onTap: () => Navigator.pushNamed(context, Routes.help)),/*ListTile(
@@ -107,9 +109,9 @@ class UnauthDrawer extends StatelessWidget {
 }
 
 // https://medium.com/flutter-community/flutter-vi-navigation-drawer-flutter-1-0-3a05e09b0db9
-Widget _createDrawerItem(
-    {IconData icon, String text, GestureTapCallback onTap}) {
+Widget _createDrawerItem({Key uniqueKey,IconData icon, String text, GestureTapCallback onTap}) {
   return ListTile(
+    key: uniqueKey,
     title: Row(
       children: <Widget>[
         Icon(icon),

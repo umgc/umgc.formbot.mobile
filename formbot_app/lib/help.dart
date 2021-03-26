@@ -12,12 +12,13 @@ class HelpPage extends StatelessWidget {
       Navigator.pushNamedAndRemoveUntil(
           context,
           routeName,
-          ModalRoute.withName("/")
+          ModalRoute.withName("/page2")
       );
       return false; // return true if the route to be popped
     }
 
-    new WillPopScope(child: new Scaffold(), onWillPop: _willPopCallback);
+    // new WillPopScope(child: new Scaffold(), 
+    // onWillPop: _willPopCallback);
 
     return new Scaffold(
       appBar: AppBar(
@@ -30,6 +31,7 @@ class HelpPage extends StatelessWidget {
             Text("Help"
             ),
             ElevatedButton(
+              key: Key('help_back_btn'),
               onPressed: () {
                 Navigator.pop(context);
               },

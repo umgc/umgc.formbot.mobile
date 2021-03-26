@@ -20,6 +20,7 @@ class HomePage extends StatelessWidget {
     new WillPopScope(child: new Scaffold(), onWillPop: _willPopCallback);
 
     return Scaffold(
+      key: Key('home'),
       appBar: AppBar(
           title: Row(
             children: <Widget>[
@@ -58,6 +59,7 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 width: 230,
                 child: RaisedButton(
+                  key: Key('begin_conversation'),
                   color: Colors.blue,
                   onPressed: () => {Navigator.pushNamed(context, Routes.conversation)},
                   child: Padding(
@@ -73,6 +75,7 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 width: 230,
                 child: RaisedButton(
+                   key: Key('view_reports'),
                   onPressed: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -87,6 +90,7 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 width: 230,
                 child: RaisedButton(
+                   key: Key('settings'),
                   onPressed: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -101,6 +105,7 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 width: 230,
                 child: RaisedButton(
+                   key: Key('helpFromDrawer'),
                   onPressed: () => {Navigator.pushNamed(context, Routes.help)},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
