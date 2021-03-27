@@ -4,8 +4,8 @@ import 'widgets/app_drawer.dart';
 import 'routes/routes.dart';
 
 class HomePage extends StatelessWidget {
-  static const String routeName = 'page2';
-
+  static const String routeName = 'homepage';
+  @override
   Widget build(BuildContext context) {
 
     Future<bool> _willPopCallback() async {
@@ -57,8 +57,8 @@ class HomePage extends StatelessWidget {
 
               SizedBox(
                 width: 230,
-                child: RaisedButton(
-                  color: Colors.blue,
+                child: ElevatedButton(
+                 style: ElevatedButton.styleFrom(primary: Colors.blue),
                   onPressed: () => {Navigator.pushNamed(context, Routes.conversation)},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -72,7 +72,8 @@ class HomePage extends StatelessWidget {
 
               SizedBox(
                 width: 230,
-                child: RaisedButton(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.blue),
                   onPressed: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -86,7 +87,8 @@ class HomePage extends StatelessWidget {
 
               SizedBox(
                 width: 230,
-                child: RaisedButton(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.blue),
                   onPressed: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -100,7 +102,8 @@ class HomePage extends StatelessWidget {
 
               SizedBox(
                 width: 230,
-                child: RaisedButton(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.blue),
                   onPressed: () => {Navigator.pushNamed(context, Routes.help)},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
