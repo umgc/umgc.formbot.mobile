@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
 import 'widgets/app_drawer.dart';
 import 'routes/routes.dart';
 
 class HomePage extends StatelessWidget {
-  static const String routeName = 'page2';
-
+  static const String routeName = 'homepage';
+  @override
   Widget build(BuildContext context) {
 
     Future<bool> _willPopCallback() async {
@@ -58,9 +58,9 @@ class HomePage extends StatelessWidget {
 
               SizedBox(
                 width: 230,
-                child: RaisedButton(
-                  key: Key('begin_conversation'),
-                  color: Colors.blue,
+                child: ElevatedButton(
+                     key: Key('begin_conversation'),
+                 style: ElevatedButton.styleFrom(primary: Colors.blue),
                   onPressed: () => {Navigator.pushNamed(context, Routes.conversation)},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -74,8 +74,8 @@ class HomePage extends StatelessWidget {
 
               SizedBox(
                 width: 230,
-                child: RaisedButton(
-                   key: Key('view_reports'),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.blue),
                   onPressed: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -89,8 +89,8 @@ class HomePage extends StatelessWidget {
 
               SizedBox(
                 width: 230,
-                child: RaisedButton(
-                   key: Key('settings'),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.blue),
                   onPressed: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -104,8 +104,9 @@ class HomePage extends StatelessWidget {
 
               SizedBox(
                 width: 230,
-                child: RaisedButton(
-                   key: Key('helpFromDrawer'),
+                child: ElevatedButton(
+                      key: Key('helpFromDrawer'),
+                  style: ElevatedButton.styleFrom(primary: Colors.blue),
                   onPressed: () => {Navigator.pushNamed(context, Routes.help)},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

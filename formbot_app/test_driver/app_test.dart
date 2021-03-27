@@ -9,7 +9,6 @@ void main(){
 }
 
 Future<void> testAll() async {
-  group('',(){
     FlutterDriver driver;
     setUpAll(() async {
       driver = await FlutterDriver.connect();
@@ -114,5 +113,4 @@ Future<void> testAll() async {
 
      
 
-  });
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'widgets/app_drawer.dart';
 
 class HelpPage extends StatelessWidget {
@@ -12,24 +11,22 @@ class HelpPage extends StatelessWidget {
       Navigator.pushNamedAndRemoveUntil(
           context,
           routeName,
-          ModalRoute.withName("/page2")
+          ModalRoute.withName("/")
       );
       return false; // return true if the route to be popped
     }
 
-    // new WillPopScope(child: new Scaffold(), 
-    // onWillPop: _willPopCallback);
+    new WillPopScope(child: new Scaffold(), onWillPop: _willPopCallback);
 
     return new Scaffold(
       appBar: AppBar(
         title: Text("Help"),
       ),
-      endDrawer: UnauthDrawer(),
+      endDrawer: AuthDrawer(),
       body: Center(
         child: Column(
           children: <Widget>[
-            Text("Help"
-            ),
+            Text("Help"),
             ElevatedButton(
               key: Key('help_back_btn'),
               onPressed: () {
@@ -43,4 +40,3 @@ class HelpPage extends StatelessWidget {
     );
   }
 }
-
