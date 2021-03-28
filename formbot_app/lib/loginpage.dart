@@ -1,10 +1,15 @@
+/*This software is free to use by anyone. It comes with no warranties and is provided solely "AS-IS".
+It may contain significant bugs, or may not even perform the intended tasks, or fail to be fit for any purpose.
+University of Maryland is not responsible for any shortcomings and the user is solely responsible for the use.*/
+
 import 'package:flutter/material.dart';
 
 import 'widgets/app_drawer.dart';
 import 'routes/routes.dart';
 import 'auth.dart';
-
-
+import 'help.dart';
+import 'homepage.dart';
+import 'chat.dart';
 
 // This widget is the home page of the application. It is stateful.
 class LoginPage extends StatefulWidget {
@@ -81,6 +86,9 @@ class _LoginPage extends State<LoginPage> {
       // created by the App.build method.
       appBar: AppBar(
         title: Text(widget.title),
+          //backgroundColor: Color(0xFF007fbc)
+        backgroundColor: (Colors.white),
+        iconTheme: (IconThemeData(color: Colors.black)),
       ),
 
       body: Center(
@@ -92,9 +100,19 @@ class _LoginPage extends State<LoginPage> {
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold,),
             ),
-            const SizedBox(height: 30, width: 10.0,),
+            const SizedBox(height: 50, width: 10.0,),
             logInButton,
             helpButton,
+
+            SizedBox(height: 100),
+            Container(
+              // margin: EdgeInsets.only(top: 100),
+              padding: const EdgeInsets.all(20.0),
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                  """This software is free to use by anyone. It comes with no warranties and is provided solely "AS-IS". It may contain significant bugs, or may not even perform the intended tasks, or fail to be fit for any purpose. University of Maryland is not responsible for any shortcomings and the user is solely responsible for the use.
+                      """),
+            )
           ],
         ),
       ),

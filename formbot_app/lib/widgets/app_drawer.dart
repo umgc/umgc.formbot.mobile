@@ -1,3 +1,7 @@
+/*This software is free to use by anyone. It comes with no warranties and is provided solely "AS-IS".
+It may contain significant bugs, or may not even perform the intended tasks, or fail to be fit for any purpose.
+University of Maryland is not responsible for any shortcomings and the user is solely responsible for the use.*/
+
 import 'package:flutter/material.dart';
 
 import 'package:formbot_app/routes/routes.dart';
@@ -47,16 +51,17 @@ class _AuthDrawerState extends State<AuthDrawer>{
               height: 300,
               width: 300,
               decoration: BoxDecoration(
-                color: Colors.white,
-                  // color: Colors.black,
+                //color: Colors.white,
+                  //color: Color(0xFFFAFAFA),
+                  color: Color(0xFF007fbc),
                   image: DecorationImage(
                       image: AssetImage("assets/images/cover-icon.png"),
-                      //image: AssetImage("assets/images/cover-icon-new.png"),
                       fit: BoxFit.contain)),
             ),
           ),
           // use _createDrawerItem instead of listing each tile
-          _createDrawerItem(icon: Icons.verified_user, text: '{$_email}'),
+          //_createDrawerItem(icon: Icons.verified_user, text: '{$_email}'),
+          _createDrawerItem(icon: Icons.verified_user, text: '$_email'),  // Removed the curly braces as these appear in the app
           _createDrawerItem(icon: Icons.home,text: 'Home', onTap: () => Navigator.pushNamed(context, Routes.home)),
           _createDrawerItem(icon: Icons.chat,text: 'Begin Conversation', onTap: () => Navigator.pushNamed(context, Routes.conversation)),
           _createDrawerItem(icon: Icons.receipt, text: 'View Reports'),
