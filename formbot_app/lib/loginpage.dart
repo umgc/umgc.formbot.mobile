@@ -7,9 +7,6 @@ import 'package:flutter/material.dart';
 import 'widgets/app_drawer.dart';
 import 'routes/routes.dart';
 import 'auth.dart';
-import 'help.dart';
-import 'homepage.dart';
-import 'chat.dart';
 
 // This widget is the home page of the application. It is stateful.
 class LoginPage extends StatefulWidget {
