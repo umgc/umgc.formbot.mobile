@@ -39,7 +39,6 @@ class _AuthDrawerState extends State<AuthDrawer>{
 
   @override
   Widget build(BuildContext context){
-    final loggedIn = _currentUser != null;
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -58,7 +57,7 @@ class _AuthDrawerState extends State<AuthDrawer>{
           ),
           // use _createDrawerItem instead of listing each tile
           _createDrawerItem(icon: Icons.verified_user, text: '{$_email}'),
-          _createDrawerItem(icon: Icons.home,text: 'Home', onTap: () => Navigator.pushNamed(context, Routes.page2)),
+          _createDrawerItem(icon: Icons.home,text: 'Home', onTap: () => Navigator.pushNamed(context, Routes.home)),
           _createDrawerItem(icon: Icons.chat,text: 'Begin Conversation', onTap: () => Navigator.pushNamed(context, Routes.conversation)),
           _createDrawerItem(icon: Icons.receipt, text: 'View Reports'),
           _createDrawerItem(icon: Icons.settings, text: 'Settings'),
@@ -91,7 +90,7 @@ class UnauthDrawer extends StatelessWidget {
                       fit: BoxFit.contain)),
             ),
           ),
-          _createDrawerItem(icon: Icons.home,text: 'Home', onTap: () => Navigator.pushNamed(context, Routes.page2)),
+          _createDrawerItem(icon: Icons.home,text: 'Home', onTap: () => Navigator.pushNamed(context, Routes.home)),
           //_createDrawerItem(icon: Icons.app_registration,text: 'Sign Up'),
           _createDrawerItem(icon: Icons.chat,text: 'Log In'),
           _createDrawerItem(icon: Icons.help_outline, text: 'Help', onTap: () => Navigator.pushNamed(context, Routes.help)),/*ListTile(
