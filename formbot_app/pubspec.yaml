@@ -27,7 +27,6 @@ dependencies:
 #  speech_to_text: 2.3.0
   dialogflow_grpc: ^0.2.8
   sound_stream: ^0.2.0
-  rxdart: ^0.26.0
   googleapis: any
   google_sign_in: any
   firebase_core: any
