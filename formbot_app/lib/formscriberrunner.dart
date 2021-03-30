@@ -2,6 +2,9 @@
 It may contain significant bugs, or may not even perform the intended tasks, or fail to be fit for any purpose.
 University of Maryland is not responsible for any shortcomings and the user is solely responsible for the use.*/
 
-abstract class Bloc {
-  void dispose();
+import 'package:flutter/material.dart';
+import 'formscriberstatelessroot.dart';
+void main() {
+  runApp(FormScriberStatelessRoot());
 }
+

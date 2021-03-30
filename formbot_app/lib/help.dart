@@ -1,3 +1,7 @@
+/*This software is free to use by anyone. It comes with no warranties and is provided solely "AS-IS".
+It may contain significant bugs, or may not even perform the intended tasks, or fail to be fit for any purpose.
+University of Maryland is not responsible for any shortcomings and the user is solely responsible for the use.*/
+
 import 'package:flutter/material.dart';
 import 'widgets/app_drawer.dart';
 
@@ -21,6 +25,8 @@ class HelpPage extends StatelessWidget {
     return new Scaffold(
       appBar: AppBar(
         title: Text("Help"),
+        backgroundColor: Color(0xFF007fbc),
+
       ),
       endDrawer: AuthDrawer(),
       body: Center(
@@ -33,6 +39,7 @@ class HelpPage extends StatelessWidget {
                 Navigator.pop(context);
               },
               child: Text('Back'),
+              style: ElevatedButton.styleFrom(primary: Color(0xFF007fbc)),
             ),
           ]
         )
