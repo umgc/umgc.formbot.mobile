@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // import 'package:rxdart/rxdart.dart';
 // import 'package:sound_stream/sound_stream.dart';
-import 'package:dialogflow_grpc/dialogflow_grpc.dart';
+import 'package:dialogflow_grpc/dialogflow_grpc.dart' as dialog_flow;
 
 // https://pub.dev/packages/dialogflow_grpc/example
 class Chat extends StatefulWidget {
@@ -33,7 +33,7 @@ class _ChatState extends State<Chat> {
   // BehaviorSubject<List<int>> _audioStream;
 
   // DialogflowGrpc class instance
-  DialogflowGrpc dialogflow;
+  dialog_flow.DialogflowGrpcV2 dialogflow;
 
   @override
   void initState() {
@@ -45,6 +45,7 @@ class _ChatState extends State<Chat> {
     await Future.delayed(Duration(milliseconds: 50));
 
     Widget dropdownButton = DropdownButton<String>(
+      key: Key('templateDropdown'),
       hint:new Text("Select a Template"),
       onChanged: (value) {
         setState(() {
@@ -67,6 +68,7 @@ class _ChatState extends State<Chat> {
     );
 
     Widget proceedButton = TextButton(
+      key: Key('proceedBtn'),
         onPressed: () {
           Navigator.of(context).pop();
           setState(() {
@@ -121,10 +123,10 @@ class _ChatState extends State<Chat> {
     // ]);
 
 
-    final serviceAccount = ServiceAccount.fromString(
+    final serviceAccount = dialog_flow.ServiceAccount.fromString(
         '${(await rootBundle.loadString('assets/credentials.json'))}');
 
-    dialogflow = DialogflowGrpc.viaServiceAccount(serviceAccount);
+    dialogflow = dialog_flow.DialogflowGrpcV2.viaServiceAccount(serviceAccount);
   }
 
   // void stopStream() async {
@@ -236,6 +238,7 @@ class _ChatState extends State<Chat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Key('chat_page'),
       appBar: AppBar(
         title: Text('Conversation'),
         backgroundColor: Color(0xFF007fbc),
@@ -263,6 +266,7 @@ class _ChatState extends State<Chat> {
                     child: Row(
                       children: <Widget>[Flexible(
                         child: TextField(
+                          key: Key('msgTextfield'),
                           controller: _textController,
                           onSubmitted: handleSubmitted,
                           decoration: InputDecoration.collapsed(hintText: "Send a message"),
@@ -271,6 +275,7 @@ class _ChatState extends State<Chat> {
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 4.0),
                           child: IconButton(
+                            key:  Key('msgSendBtn'),
                             icon: Icon(Icons.send),
                             onPressed: () => handleSubmitted(_textController.text),
                           ),

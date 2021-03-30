@@ -3,7 +3,6 @@ It may contain significant bugs, or may not even perform the intended tasks, or 
 University of Maryland is not responsible for any shortcomings and the user is solely responsible for the use.*/
 
 import 'package:flutter/material.dart';
-
 import 'widgets/app_drawer.dart';
 
 class HelpPage extends StatelessWidget {
@@ -33,9 +32,9 @@ class HelpPage extends StatelessWidget {
       body: Center(
         child: Column(
           children: <Widget>[
-            Text("Help"
-            ),
+            Text("Help"),
             ElevatedButton(
+              key: Key('help_back_btn'),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -48,4 +47,3 @@ class HelpPage extends StatelessWidget {
     );
   }
 }
-

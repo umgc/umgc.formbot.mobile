@@ -3,7 +3,6 @@ It may contain significant bugs, or may not even perform the intended tasks, or 
 University of Maryland is not responsible for any shortcomings and the user is solely responsible for the use.*/
 
 import 'package:flutter/material.dart';
-
 import 'widgets/app_drawer.dart';
 import 'routes/routes.dart';
 
@@ -24,6 +23,7 @@ class HomePage extends StatelessWidget {
     new WillPopScope(child: new Scaffold(), onWillPop: _willPopCallback);
 
     return Scaffold(
+      key: Key('home'),
       appBar: AppBar(
         backgroundColor: Color(0xFF007fbc),
           title: Row(
@@ -62,15 +62,9 @@ class HomePage extends StatelessWidget {
 
               SizedBox(
                 width: 230,
-//<<<<<<< Updated upstream
                 child: ElevatedButton(
-                 //style: ElevatedButton.styleFrom(primary: Colors.blue),
-                  style: ElevatedButton.styleFrom(primary: Color(0xFF007fbc)),
-//=======
-                //child: RaisedButton(
-                  //color: Colors.blue,
-                  //color: Color(0xFF007fbc),
-//>>>>>>> Stashed changes
+                     key: Key('begin_conversation'),
+                 style: ElevatedButton.styleFrom(primary: Colors.blue),
                   onPressed: () => {Navigator.pushNamed(context, Routes.conversation)},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -87,8 +81,7 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 width: 230,
                 child: ElevatedButton(
-                  //style: ElevatedButton.styleFrom(primary: Colors.blue),
-                  style: ElevatedButton.styleFrom(primary: Color(0xFF007fbc)),
+                  style: ElevatedButton.styleFrom(primary: Colors.blue),
                   onPressed: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -103,8 +96,7 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 width: 230,
                 child: ElevatedButton(
-                  //style: ElevatedButton.styleFrom(primary: Colors.blue),
-                  style: ElevatedButton.styleFrom(primary: Color(0xFF007fbc)),
+                  style: ElevatedButton.styleFrom(primary: Colors.blue),
                   onPressed: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -119,8 +111,8 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 width: 230,
                 child: ElevatedButton(
-                  //style: ElevatedButton.styleFrom(primary: Colors.blue),
-                  style: ElevatedButton.styleFrom(primary: Color(0xFF007fbc)),
+                      key: Key('helpFromDrawer'),
+                  style: ElevatedButton.styleFrom(primary: Colors.blue),
                   onPressed: () => {Navigator.pushNamed(context, Routes.help)},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
