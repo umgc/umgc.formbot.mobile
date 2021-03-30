@@ -1,3 +1,7 @@
+/*This software is free to use by anyone. It comes with no warranties and is provided solely "AS-IS".
+It may contain significant bugs, or may not even perform the intended tasks, or fail to be fit for any purpose.
+University of Maryland is not responsible for any shortcomings and the user is solely responsible for the use.*/
+
 import 'dart:developer';
 import 'dart:io';
 import 'dart:async';
@@ -10,7 +14,7 @@ import 'package:dialogflow_grpc/dialogflow_grpc.dart';
 import 'package:dialogflow_grpc/v2.dart';
 import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/v2/session.pb.dart'
     as pbSession;
-import 'app_body.dart';
+import 'app_body.dart' as dialog_flow;
 
 // https://pub.dev/packages/dialogflow_grpc/example
 class Chat extends StatefulWidget {
@@ -75,6 +79,7 @@ class _ChatState extends State<Chat> {
     await Future.delayed(Duration(milliseconds: 500));
 
     Widget dropdownButton = DropdownButton<String>(
+      key: Key('templateDropdown'),
       hint: new Text("Select a Template"),
       onChanged: (value) {
         setState(() {
@@ -102,6 +107,7 @@ class _ChatState extends State<Chat> {
     );
 
     Widget proceedButton = TextButton(
+      key: Key('proceedBtn'),
         onPressed: () {
           Navigator.of(context).pop();
           setState(() {
@@ -263,8 +269,10 @@ class _ChatState extends State<Chat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Key('chat_page'),
       appBar: AppBar(
         title: Text('Conversation'),
+        backgroundColor: Color(0xFF007fbc),
       ),
       body: Column(children: <Widget>[
         Expanded(child: AppBody(messages: messages)),
@@ -279,7 +287,7 @@ class _ChatState extends State<Chat> {
                   children: <Widget>[
                     Flexible(
                       child: TextField(
-                        controller: _textController,
+                        key: Key('msgTextfield'),controller: _textController,
                         onSubmitted: handleSubmitted,
                         decoration: InputDecoration.collapsed(
                             hintText: "Send a message"),
@@ -287,7 +295,7 @@ class _ChatState extends State<Chat> {
                     ),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 4.0),
-                      child: IconButton(
+                      child: IconButton(key:  Key('msgSendBtn'),
                           icon: Icon(Icons.send),
                           onPressed: () {
                             handleSubmitted(_textController.text);
