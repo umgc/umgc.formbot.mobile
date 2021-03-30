@@ -23,17 +23,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-#  dialog_flowtter: ^0.2.0
   dialogflow_grpc: ^0.2.8
-#  speech_to_text: 2.3.0
+  sound_stream: ^0.2.0
   googleapis: any
   google_sign_in: any
   firebase_core: any
   firebase_auth: any
   # crypto: ^3.0.0
-#  flutterfire/packages/firebase_core/firebase_core/lib/firebase_core.dart:
-#  flutterfire/packages/firebase_auth/firebase_auth/lib/firebase_auth.dart:
-#  flutterplugins/packages/google_sign_in/google_sign_in/lib/google_sign_in.dart:
 
   # The following adds the Cupertino Icons font for iOS style icons to your application.
   cupertino_icons: ^1.0.2
@@ -60,7 +56,6 @@ flutter:
   assets:
     - assets/images/
     - assets/credentials.json
-#    - assets/dialog_flow_auth.json
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

@@ -1,6 +1,1 @@
-[submodule "formbot_app/lib/umgc.formbot.flutterfire"]
-	path = formbot_app/lib/umgc.formbot.flutterfire
-	url = https://github.com/umgc/umgc.formbot.flutterfire
-[submodule "formbot_app/lib/umgc.formbot.flutterplugins"]
-	path = formbot_app/lib/umgc.formbot.flutterplugins
-	url = https://github.com/umgc/umgc.formbot.flutterplugins
+

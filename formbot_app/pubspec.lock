@@ -451,6 +451,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  sound_stream:
+    dependency: "direct main"
+    description:
+      name: sound_stream
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   source_map_stack_trace:
     dependency: transitive
     description:
@@ -471,7 +478,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.1"
+    version: "1.8.0"
   stack_trace:
     dependency: transitive
     description:
