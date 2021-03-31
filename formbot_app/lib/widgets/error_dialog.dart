@@ -15,8 +15,9 @@ class FormSciberErrorDialog  extends StatelessWidget {
         ),
       ),
       actions:  <Widget>[ElevatedButton(onPressed: () {
-        Navigator.of(context).pop();
-      })]
+        Navigator.of(context).pop();},
+        child:Text("Ok")
+      )]
      );
     }
   }
