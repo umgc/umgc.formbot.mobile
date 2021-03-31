@@ -14,7 +14,7 @@ import 'package:dialogflow_grpc/dialogflow_grpc.dart';
 import 'package:dialogflow_grpc/v2.dart';
 import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/v2/session.pb.dart'
     as pbSession;
-import 'app_body.dart' as dialog_flow;
+import 'app_body.dart';
 
 // https://pub.dev/packages/dialogflow_grpc/example
 class Chat extends StatefulWidget {
