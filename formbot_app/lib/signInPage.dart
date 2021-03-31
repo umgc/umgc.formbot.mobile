@@ -7,43 +7,38 @@ import 'auth.dart';
 
 
 // This widget is the home page of the application. It is stateful.
-class LoginPage extends StatefulWidget {
+class SignInPage extends StatefulWidget {
   //Navigator route name.
-  static const String routeName = 'loginpage';
+  static const String routeName = 'SignInPage';
 
 
   // This class is the configuration for the state.
   // It holds the values provided by the parent and
   // used by the build method of the State.
-  LoginPage({Key key, this.title}) : super(key: key);
+  SignInPage({Key key, this.title} ) : super(key: key);
 
   final String title;
 
   @override
-  _LoginPage createState() => _LoginPage();
+  _SignInPage createState() => _SignInPage();
 }
 
-class _LoginPage extends State<LoginPage> {
+class _SignInPage extends State<SignInPage> {
 
 
   Future<void> _handleSignIn() async {
-    bool isSignedIn = await AuthManager.signIn();
+    bool isSignedIn = await AuthenticationManager.signIn();
     if (isSignedIn) {
-      Navigator.pushReplacementNamed(context, Routes.home);
+      Navigator.pushNamed(context, Routes.home);
     }
   }
 
-  Future<void> _signInSilently() async {
-    var account = await AuthManager.signInSilently();
-    if (account != null) {
-      Navigator.pushReplacementNamed(context, Routes.home);
-    }
-  }
-
-  _logout() {
-    AuthManager.signOut();
-    Navigator.pushReplacementNamed(context, Routes.login);
-  }
+  // Future<void> _signInSilently() async {
+  //   var account = await AuthManager.signInSilently();
+  //   if (account != null) {
+  //     Navigator.pushReplacementNamed(context, Routes.home);
+  //   }
+  // }
 
   // This method is rerun every time setState is called.
   @override
@@ -52,7 +47,7 @@ class _LoginPage extends State<LoginPage> {
     Future<bool> _willPopCallback() async {
       Navigator.pushNamedAndRemoveUntil(
           context,
-          Routes.login,
+          Routes.signIn,
           ModalRoute.withName("/")
       );
       return false; // return true if the route to be popped
@@ -66,7 +61,7 @@ class _LoginPage extends State<LoginPage> {
 
     ElevatedButton helpButton = ElevatedButton(
         onPressed: (){
-          _logout();
+          Navigator.pushNamed(context, Routes.help);
         },
         child: Text('Help')
     );

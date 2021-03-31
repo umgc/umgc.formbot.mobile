@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:formbot_app/routes/routes.dart';
 import 'package:formbot_app/auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+
 
 class AuthDrawer extends StatefulWidget {
   AuthDrawer({Key key}) : super(key: key);
@@ -12,29 +12,22 @@ class AuthDrawer extends StatefulWidget {
 }
 
 class _AuthDrawerState extends State<AuthDrawer>{
-  GoogleSignInAccount _currentUser;
-  String _email;
 
   @override
   void initState() {
     super.initState();
-    _signInSilently();
+   // _signInSilently();
   }
 
-  Future<void> _signInSilently() async {
-    var account = await AuthManager.signInSilently();
-    setState(() {
-      _currentUser = account;
-      _email = _currentUser.email;
-    });
-  }
+  // Future<void> _signInSilently() async {
+  //     var account = await AuthenticationManager.signInSilently();
+  //
+  // }
 
   void _logout() {
-    setState(() {
-      _currentUser = null;
-    });
-    AuthManager.signOut();
+    AuthenticationManager.signOut();
     Navigator.popUntil(context, ModalRoute.withName('/'));
+    Navigator.pushNamed(context, Routes.signIn);
   }
 
   @override
@@ -56,7 +49,7 @@ class _AuthDrawerState extends State<AuthDrawer>{
             ),
           ),
           // use _createDrawerItem instead of listing each tile
-          _createDrawerItem(icon: Icons.verified_user, text: '{$_email}'),
+         // _createDrawerItem(icon: Icons.verified_user, text: '{$_email}'),
           _createDrawerItem(icon: Icons.home,text: 'Home', onTap: () => Navigator.pushNamed(context, Routes.home)),
           _createDrawerItem(icon: Icons.chat,text: 'Begin Conversation', onTap: () => Navigator.pushNamed(context, Routes.conversation)),
           _createDrawerItem(icon: Icons.receipt, text: 'View Reports'),

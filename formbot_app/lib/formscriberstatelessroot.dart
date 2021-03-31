@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'routes/routes.dart';
-import 'loginpage.dart';
+import 'signInPage.dart';
 import 'homepage.dart';
 import 'chat.dart';
 import 'help.dart';
@@ -19,14 +19,14 @@ class FormScriberStatelessRoot extends StatelessWidget {
         // This makes the visual density adapt to any platform.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: LoginPage(title: 'Form Scriber'),
+      home: SignInPage(title: 'Form Scriber'),
 
       //Navigator routes to other pages.
        routes: {
          Routes.help: (context) => HelpPage(),
          Routes.home: (context) => HomePage(),
          Routes.conversation: (context) => Chat(),
-         Routes.login:(context) => LoginPage(),
+         Routes.signIn:(context) => SignInPage(),
        },
     );
   }
