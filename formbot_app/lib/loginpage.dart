@@ -49,6 +49,11 @@ class _LoginPage extends State<LoginPage> {
     Navigator.pushReplacementNamed(context, Routes.login);
   }
 
+  // Navigate to help page
+  _helpPage()
+  {
+    Navigator.pushNamed(context, Routes.help);
+  }
   // This method is rerun every time setState is called.
   @override
   Widget build(BuildContext context) {
@@ -70,7 +75,8 @@ class _LoginPage extends State<LoginPage> {
 
     ElevatedButton helpButton = ElevatedButton(
         onPressed: (){
-          _logout();
+          //_logout();
+          _helpPage();
         },
         child: Text('Help')
     );
