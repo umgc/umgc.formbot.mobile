@@ -15,6 +15,9 @@ class FormScriberStatelessRoot extends StatelessWidget {
     return MaterialApp(
       title: 'Form Scriber',
 
+      // Remove the debug banner
+      debugShowCheckedModeBanner: false,
+
       // This is the theme of the application.
       theme: ThemeData(
         primarySwatch: Colors.blue,

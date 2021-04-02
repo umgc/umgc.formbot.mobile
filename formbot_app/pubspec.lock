@@ -133,7 +133,7 @@ packages:
       name: file
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.0"
+    version: "6.1.0"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -396,7 +396,7 @@ packages:
       name: process
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0"
+    version: "4.1.0"
   protobuf:
     dependency: transitive
     description:
@@ -478,7 +478,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.0"
+    version: "1.8.1"
   stack_trace:
     dependency: transitive
     description:
@@ -506,7 +506,7 @@ packages:
       name: sync_http
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0"
+    version: "0.3.0"
   term_glyph:
     dependency: transitive
     description:
@@ -562,7 +562,7 @@ packages:
       name: vm_service
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.5.0"
+    version: "6.0.1-nullsafety.1"
   watcher:
     dependency: transitive
     description:
@@ -583,7 +583,7 @@ packages:
       name: webdriver
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.2"
+    version: "3.0.0"
   webkit_inspection_protocol:
     dependency: transitive
     description:

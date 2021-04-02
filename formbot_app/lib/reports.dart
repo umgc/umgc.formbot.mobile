@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Reports extends StatefulWidget {
+  static const String routeName = 'reports';
+
   @override
   _ReportsState createState() => _ReportsState();
 }
@@ -13,7 +15,8 @@ class _ReportsState extends State<Reports> {
           title: Row(
             children: <Widget>[
               Image.asset(
-                'assets/images/logo.png',
+                //'assets/images/logo.png',
+                'assets/images/cover-icon.png',
                 height: 55,
               ),
               SizedBox(

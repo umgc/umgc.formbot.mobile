@@ -8,6 +8,7 @@ import 'package:formbot_app/help.dart';
 import 'package:formbot_app/homepage.dart';
 import 'package:formbot_app/chat.dart';
 import 'package:formbot_app/loginpage.dart';
+import 'package:formbot_app/reports.dart';
 
 class Routes{
   static const String help = HelpPage.routeName;
@@ -16,5 +17,5 @@ class Routes{
   static const String conversation = Chat.routeName;
   static const String login = LoginPage.routeName;
   //static const String settings = SettingsPage.routeName;
-  //static const String reports = ReportsPage.routeName;
+  static const String reports = Reports.routeName;
 }

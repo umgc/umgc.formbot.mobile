@@ -62,11 +62,11 @@ class _AuthDrawerState extends State<AuthDrawer>{
           // use _createDrawerItem instead of listing each tile
           //_createDrawerItem(icon: Icons.verified_user, text: '{$_email}'),
           _createDrawerItem(icon: Icons.verified_user, text: '$_email'),  // Removed the curly braces as these appear in the app
-          _createDrawerItem(icon: Icons.home,text: 'Home',  uniqueKey: Key("drawerHome"),onTap: () => Navigator.pushNamed(context, Routes.home)),
-          _createDrawerItem(icon: Icons.chat,text: 'Begin Conversation', uniqueKey: Key("begin_conversation_tile"), onTap: () => Navigator.pushNamed(context, Routes.conversation)),
-          _createDrawerItem(icon: Icons.receipt, text: 'View Reports'),
+          _createDrawerItem(icon: Icons.home,text: 'Home',  uniqueKey: Key("drawerHome"),onTap: () => Navigator.popAndPushNamed(context, Routes.home)),
+          _createDrawerItem(icon: Icons.chat,text: 'Begin Conversation', uniqueKey: Key("begin_conversation_tile"), onTap: () => Navigator.popAndPushNamed(context, Routes.conversation)),
+          _createDrawerItem(icon: Icons.receipt, text: 'View Reports',uniqueKey: Key("view_reports"), onTap: () => Navigator.popAndPushNamed(context, Routes.reports)),
           _createDrawerItem(icon: Icons.settings, text: 'Settings'),
-          _createDrawerItem(icon: Icons.help_outline, text: 'Help', onTap: () => Navigator.pushNamed(context, Routes.help)),
+          _createDrawerItem(icon: Icons.help_outline, text: 'Help', onTap: () => Navigator.popAndPushNamed(context, Routes.help)),
           _createDrawerItem(icon: Icons.logout, text: 'Log Out', onTap: () => _logout()),
 
         ],
