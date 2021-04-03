@@ -2,6 +2,7 @@
 It may contain significant bugs, or may not even perform the intended tasks, or fail to be fit for any purpose.
 University of Maryland is not responsible for any shortcomings and the user is solely responsible for the use.*/
 
+import 'dart:core';
 import 'dart:developer';
 import 'dart:io';
 import 'dart:async';
@@ -16,6 +17,7 @@ import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/v2/session.pb.
     as pbSession;
 import 'app_body.dart';
 import 'auth.dart';
+import 'package:googleapis/drive/v3.dart' as ga;
 
 // https://pub.dev/packages/dialogflow_grpc/example
 class Chat extends StatefulWidget {
@@ -29,20 +31,28 @@ class Chat extends StatefulWidget {
 class _ChatState extends State<Chat> {
   List<Map<String, dynamic>> messages = [];
   final TextEditingController _textController = TextEditingController();
-  String selection = '';
-  String templateURL = '';
+  ga.File selection;
+  var templateURL;
   bool _isRecording = false;
 
   ServiceAccount serviceAccount;
 
   var responseStream;
-  var request;
+  var request = StreamController<pbSession.StreamingDetectIntentRequest>();
   RecorderStream _recorder = RecorderStream();
   StreamSubscription _recorderStatus;
   StreamSubscription<List<int>> _audioStreamSubscription;
 
   // DialogflowGrpc class instance
   DialogflowGrpcV2 dialogflow;
+  var authHeaders;
+
+  // custom IOClient from below
+  var httpClient;
+
+  ga.FileList folders;
+  var templateFolderId;
+  ga.FileList docslist;
 
   @override
   void initState() {
@@ -76,31 +86,63 @@ class _ChatState extends State<Chat> {
   }
 
   _showDialog() async {
+    authHeaders = await googleSignIn.currentUser.authHeaders;
+    print(authHeaders);
+    httpClient = GoogleHttpClient(authHeaders);
+    // print(httpClient);
     await Future.delayed(Duration(milliseconds: 500));
 
-    Widget dropdownButton = DropdownButton<String>(
+    var drive = ga.DriveApi(httpClient);
+
+    await drive.files.list(spaces: 'drive', q: "mimeType = 'application/vnd.google-apps.folder'").then((value) {
+      setState(() {
+        folders = value;
+      });
+      for (var i = 0; i < folders.files.length; i++) {
+        print("Id: ${folders.files[i].id} | File Name:${folders.files[i].name} | mimeType: ${folders.files[i].mimeType}" );
+        if(folders.files[i].name == "formscriber-templates"){
+          print("----- found folder ------");
+          print(folders.files[i].toJson());
+          templateFolderId = folders.files[i].id;
+        }
+      }
+    });
+
+    print(templateFolderId);
+
+    await drive.files.list(q: "'$templateFolderId' in parents").then((value) {
+      setState(() {
+        docslist = value;
+      });
+      for (var i = 0; i < docslist.files.length; i++) {
+          print(docslist.files[i].toJson());
+        }
+    });
+
+    Widget dropdownButton = DropdownButton(
       key: Key('templateDropdown'),
-      hint: new Text("Select a Template"),
-      onChanged: (value) {
-        setState(() {
-          selection = value;
-        });
-      },
-      items: <String>[
-        'Vaccination Record',
-        'New Prescription',
-        'Medical History',
-        'D'
-      ].map((String value) {
-        return new DropdownMenuItem<String>(
-          value: value,
-          child: new Text(value),
+      // hint: new Text("Select a Template"),
+      isExpanded: false,
+      value: docslist.files[0].name,
+      items: docslist.files.map((value) {
+        return new DropdownMenuItem(
+          value: value.name,
+          child: new Text(value.name),
         );
       }).toList(),
+      onChanged: (value) async {
+        selection = await drive.files.get(docslist.files.singleWhere((element) => element.name == value).id, $fields: "webViewLink");
+        setState(() {
+          templateURL = selection.webViewLink;
+          print(templateURL);
+        });
+      },
     );
 
     Widget cancelButton = TextButton(
       onPressed: () {
+        // Navigator.of(context).popUntil(ModalRoute.withName('/home'));
+        Navigator.of(context).pop();
         Navigator.of(context).pop();
       },
       child: Text('Cancel'),
@@ -110,11 +152,6 @@ class _ChatState extends State<Chat> {
       key: Key('proceedBtn'),
         onPressed: () {
           Navigator.of(context).pop();
-          setState(() {
-            // templateURL = 'https://docs.google.com/document/d/1yQyeG1vwL3D5vfDZV3INv5syqNUWu_Xl26QyVbTUrSE/edit?usp=drivesdk';
-            templateURL =
-                'https://docs.google.com/document/d/1o525SlozEGxS-d4PVp_GsDt6j8C9L6W8U5J63CFB6gU/edit?usp=sharing';
-          });
           _greeting(templateURL);
         },
         child: Text('Proceed'));
@@ -186,6 +223,7 @@ class _ChatState extends State<Chat> {
     // _recorder.start();
     // _isRecording = true;
     await startRecord();
+    print('recorder started');
 
     // Create and audio InputConfig
     //  See: https://cloud.google.com/dialogflow/es/docs/reference/rpc/google.cloud.dialogflow.v2#google.cloud.dialogflow.v2.InputAudioConfig
@@ -199,21 +237,35 @@ class _ChatState extends State<Chat> {
           languageCode: 'en-US',
           sampleRateHertz: 16000);
     }
+    print('config created, $config');
 
     pbSession.QueryInput queryInput = pbSession.QueryInput()..audioConfig = config.cast();
-    request = StreamController<pbSession.StreamingDetectIntentRequest>();
+    print('queryInput created, $queryInput');
+
+
+    print('request state before init: $request');
+    setState(() {
+      request = null;
+      request = new StreamController<pbSession.StreamingDetectIntentRequest>();
+    });
+    print('request state after init: $request');
+
     request.add(pbSession.StreamingDetectIntentRequest()
       ..queryInput = queryInput
       ..session = DialogflowAuth.session
     );
 
+    print('request state after first add: $request');
+
     _audioStreamSubscription = _recorder.audioStream.listen((audio) {
       // Add audio content when stream changes.
       request.add(pbSession.StreamingDetectIntentRequest()
         ..inputAudio = audio);
-    }, onDone: () {
-      request.close();
-      log('closed request');}
+      // print('adding audio to request stream');
+    }
+    // , onDone: () {
+    //   request.close();
+    //   log('closed request');}
     );
 
     responseStream = dialogflow.client.streamingDetectIntent(request.stream);
@@ -260,8 +312,8 @@ class _ChatState extends State<Chat> {
     log('_recorder.stop() called, recorder stopped');
 
     await Future.delayed(Duration(milliseconds: 100));
-    request.close();
-    request = null;
+    await Future.wait([request.close()]);
+    log('request.close() called, request closed');
     _isRecording = false;
   }
 

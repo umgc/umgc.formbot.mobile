@@ -65,7 +65,7 @@ class _AuthDrawerState extends State<AuthDrawer>{
           _createDrawerItem(icon: Icons.home,text: 'Home',  uniqueKey: Key("drawerHome"),onTap: () => Navigator.popAndPushNamed(context, Routes.home)),
           _createDrawerItem(icon: Icons.chat,text: 'Begin Conversation', uniqueKey: Key("begin_conversation_tile"), onTap: () => Navigator.popAndPushNamed(context, Routes.conversation)),
           _createDrawerItem(icon: Icons.receipt, text: 'View Reports',uniqueKey: Key("view_reports"), onTap: () => Navigator.popAndPushNamed(context, Routes.reports)),
-          _createDrawerItem(icon: Icons.settings, text: 'Settings'),
+          _createDrawerItem(icon: Icons.settings, text: 'Settings', onTap: () => Navigator.popAndPushNamed(context, Routes.settings)),
           _createDrawerItem(icon: Icons.help_outline, text: 'Help', onTap: () => Navigator.popAndPushNamed(context, Routes.help)),
           _createDrawerItem(icon: Icons.logout, text: 'Log Out', onTap: () => _logout()),
 
