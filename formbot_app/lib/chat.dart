@@ -32,6 +32,7 @@ class _ChatState extends State<Chat> {
   List<Map<String, dynamic>> messages = [];
   final TextEditingController _textController = TextEditingController();
   ga.File selection;
+  String selectionName;
   var templateURL;
   bool _isRecording = false;
 
@@ -49,6 +50,7 @@ class _ChatState extends State<Chat> {
 
   // custom IOClient from below
   var httpClient;
+  var drive;
 
   ga.FileList folders;
   var templateFolderId;
@@ -82,17 +84,11 @@ class _ChatState extends State<Chat> {
       addMessage(greeting.queryResult.fulfillmentMessages.first);
     });
 
-    _showDialog();
-  }
-
-  _showDialog() async {
     authHeaders = await googleSignIn.currentUser.authHeaders;
     print(authHeaders);
     httpClient = GoogleHttpClient(authHeaders);
-    // print(httpClient);
-    await Future.delayed(Duration(milliseconds: 500));
 
-    var drive = ga.DriveApi(httpClient);
+    drive = ga.DriveApi(httpClient);
 
     await drive.files.list(spaces: 'drive', q: "mimeType = 'application/vnd.google-apps.folder'").then((value) {
       setState(() {
@@ -115,28 +111,37 @@ class _ChatState extends State<Chat> {
         docslist = value;
       });
       for (var i = 0; i < docslist.files.length; i++) {
-          print(docslist.files[i].toJson());
-        }
+        print(docslist.files[i].toJson());
+      }
     });
+
+    _showDialog();
+  }
+
+  _showDialog() async {
+    await Future.delayed(Duration(milliseconds: 500));
+
+
 
     Widget dropdownButton = DropdownButton(
       key: Key('templateDropdown'),
-      // hint: new Text("Select a Template"),
-      isExpanded: false,
-      value: docslist.files[0].name,
+      hint: new Text("Select a Template"),
+      isExpanded: true,
       items: docslist.files.map((value) {
         return new DropdownMenuItem(
           value: value.name,
           child: new Text(value.name),
         );
       }).toList(),
-      onChanged: (value) async {
-        selection = await drive.files.get(docslist.files.singleWhere((element) => element.name == value).id, $fields: "webViewLink");
+      onChanged: (String newValue) async {
+        selection = await drive.files.get(docslist.files.singleWhere((element) => element.name == newValue).id, $fields: "webViewLink");
         setState(() {
+          selectionName = selection.name;
           templateURL = selection.webViewLink;
           print(templateURL);
         });
       },
+      value: selectionName,
     );
 
     Widget cancelButton = TextButton(
