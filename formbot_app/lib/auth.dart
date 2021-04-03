@@ -8,7 +8,8 @@ import 'package:formbot_app/bloc.dart';
 import 'package:googleapis/drive/v3.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
-
+import 'package:http/io_client.dart';
+import 'package:http/http.dart';
 
 GoogleSignIn googleSignIn = GoogleSignIn(
     scopes: [
@@ -27,6 +28,10 @@ class AuthManager extends Bloc {
       _firebaseAuth = FirebaseAuth.instance;
       if(googleAccount != null && _firebaseAuth != null) {
         GoogleSignInAuthentication googleSignInAuthentication = await googleAccount.authentication;
+        final authHeaders = await googleSignIn.currentUser.authHeaders;
+
+        // custom IOClient from below
+        final httpClient = GoogleHttpClient(authHeaders);
         //this is where we pass auth code to firebase
          UserCredential userCredential = await _firebaseAuth.signInWithCredential(GoogleAuthProvider.credential( idToken: googleSignInAuthentication.idToken, accessToken: googleSignInAuthentication.accessToken,));
          if(userCredential != null) {
@@ -40,7 +45,10 @@ class AuthManager extends Bloc {
       print(error);
       return null;
     }
+
   }
+
+
 
   static Future<GoogleSignInAccount> signInSilently() async {
     var account = await googleSignIn.signInSilently();
@@ -60,8 +68,24 @@ class AuthManager extends Bloc {
     }
   }
 
+
   @override
   void dispose() {
 
   }
+}
+
+class GoogleHttpClient extends IOClient {
+  Map<String, String> _headers;
+
+  GoogleHttpClient(this._headers) : super();
+
+  @override
+  Future<IOStreamedResponse> send(BaseRequest request) =>
+      super.send(request..headers.addAll(_headers));
+
+  @override
+  Future<Response> head(Object url, {Map<String, String> headers}) =>
+      super.head(url, headers: headers..addAll(_headers));
+
 }

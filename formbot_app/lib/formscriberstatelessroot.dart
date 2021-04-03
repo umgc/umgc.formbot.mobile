@@ -8,6 +8,8 @@ import 'loginpage.dart';
 import 'homepage.dart';
 import 'chat.dart';
 import 'help.dart';
+import 'settings.dart';
+import 'reports.dart';
 class FormScriberStatelessRoot extends StatelessWidget {
   // This widget is the root of the application.
   @override
@@ -33,6 +35,8 @@ class FormScriberStatelessRoot extends StatelessWidget {
          Routes.home: (context) => HomePage(),
          Routes.conversation: (context) => Chat(),
          Routes.login:(context) => LoginPage(),
+         Routes.settings:(context) => SettingsPage(),
+         Routes.reports:(context) => Reports(),
        },
     );
   }
