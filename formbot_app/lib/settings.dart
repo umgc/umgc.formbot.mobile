@@ -1,28 +1,18 @@
 import 'dart:core';
-import 'dart:developer';
-import 'dart:io';
-import 'dart:async';
-import 'package:dialogflow_grpc/dialogflow_auth.dart';
-import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/v2/intent.pb.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:sound_stream/sound_stream.dart';
-import 'package:dialogflow_grpc/dialogflow_grpc.dart';
-import 'package:dialogflow_grpc/v2.dart';
-import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/v2/session.pb.dart'
-as pbSession;
-import 'app_body.dart';
 import 'auth.dart';
 import 'package:googleapis/drive/v3.dart' as ga;
 
-class Reports extends StatefulWidget {
-  static const String routeName = 'reports';
+class SettingsPage extends StatefulWidget {
+  static const String routeName = 'settings';
+  SettingsPage({Key key, this.title}) : super(key: key);
 
+  final String title;
   @override
-  _ReportsState createState() => _ReportsState();
+  _SettingsPageState createState() => _SettingsPageState();
 }
 
-class _ReportsState extends State<Reports> {
+class _SettingsPageState extends State<SettingsPage> {
   var authHeaders;
   // custom IOClient from below
   var httpClient;
@@ -49,26 +39,7 @@ class _ReportsState extends State<Reports> {
     setState(() {
       drive = ga.DriveApi(httpClient);
     });
-
-  Widget dropdownButton = DropdownButton(
-    key: Key('reportsFolderDropdown'),
-    // hint: new Text("Select a Template"),
-    isExpanded: false,
-    value: folders.files[0].name,
-    items: folders.files.map((value) {
-      return new DropdownMenuItem(
-        value: value.name,
-        child: new Text(value.name),
-      );
-    }).toList(),
-    onChanged: (value) async {
-      templateFolderId =
-          templateFolderSelection = await drive.files.get(folders.files.singleWhere((element) => element.name == value).id, $fields: "webViewLink");
-      setState(() {
-
-      });
-    },
-  );
+    await getFolders();
 
   }
 
@@ -79,14 +50,10 @@ class _ReportsState extends State<Reports> {
       });
       for (var i = 0; i < folders.files.length; i++) {
         print("Id: ${folders.files[i].id} | File Name:${folders.files[i].name} | mimeType: ${folders.files[i].mimeType}" );
-        if(folders.files[i].name == "formscriber-reports"){
-          print("----- found folder ------");
-          print(folders.files[i].toJson());
-          templateFolderId = folders.files[i].id;
-        }
       }
     });
   }
+
 
 
   @override
@@ -121,7 +88,24 @@ class _ReportsState extends State<Reports> {
           ]),
       body: Center(
         child: Column(children: <Widget>[
-
+          DropdownButton(
+            key: Key('templateFolderDropdown'),
+            // hint: new Text("Select a Template"),
+            isExpanded: false,
+            value: folders.files[0].name,
+            items: folders.files.map((value) {
+              return new DropdownMenuItem(
+                value: value.name,
+                child: new Text(value.name),
+              );
+            }).toList(),
+            onChanged: (value) async {
+              templateFolderSelection = await drive.files.get(folders.files.singleWhere((element) => element.name == value).id);
+              setState(() {
+                templateFolderSelection.permissions.add(ga.Permission.fromJson({"emailAddress":"formscribermobile@form-bot-1577a.iam.gserviceaccount.com","role":"writer"}));
+              });
+            },
+          )
         ]
         ),
       ),

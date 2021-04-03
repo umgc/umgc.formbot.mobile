@@ -1,5 +1,6 @@
 import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/v2/intent.pb.dart';
 import 'package:flutter/material.dart';
+import 'package:formbot_app/routes/routes.dart';
 
 class AppBody extends StatelessWidget {
   final List<Map<String, dynamic>> messages;
@@ -140,11 +141,9 @@ class _CardContainer extends StatelessWidget {
                           Intent_Message_Card_Button button = card.buttons[i];
                           // return FlatButton(
                           return ElevatedButton(
-                            child: Text(button.text),
-                            onPressed: () {// ScaffoldMessenger.showSnackBar(
-                              Scaffold.of(context).showSnackBar(SnackBar(
-                                content: Text(button.postback),
-                              ));
+                            child: Text('View Reports'),
+                            onPressed: () {
+                              Navigator.popAndPushNamed(context, Routes.reports);
                             },
                           );
                         },

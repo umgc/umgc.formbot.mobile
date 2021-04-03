@@ -97,7 +97,7 @@ class HomePage extends StatelessWidget {
                 width: 230,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.blue),
-                  onPressed: () {},
+                  onPressed: ()  => {Navigator.pushNamed(context, Routes.settings)},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
