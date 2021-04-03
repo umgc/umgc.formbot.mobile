@@ -15,6 +15,7 @@ import 'package:dialogflow_grpc/v2.dart';
 import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/v2/session.pb.dart'
     as pbSession;
 import 'app_body.dart';
+import 'auth.dart';
 
 // https://pub.dev/packages/dialogflow_grpc/example
 class Chat extends StatefulWidget {
@@ -34,9 +35,8 @@ class _ChatState extends State<Chat> {
 
   ServiceAccount serviceAccount;
 
-
   var responseStream;
-  dynamic request;
+  var request;
   RecorderStream _recorder = RecorderStream();
   StreamSubscription _recorderStatus;
   StreamSubscription<List<int>> _audioStreamSubscription;
@@ -52,14 +52,14 @@ class _ChatState extends State<Chat> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlugin() async {
-    _recorderStatus = _recorder.status.listen((status) {
-      if (mounted)
-        setState(() {
-          _isRecording = status == SoundStreamStatus.Playing;
-        });
-    });
-
-    await Future.wait([_recorder.initialize()]);
+    // _recorderStatus = _recorder.status.listen((status) {
+    //   if (mounted)
+    //     setState(() {
+    //       _isRecording = status == SoundStreamStatus.Playing;
+    //     });
+    // });
+    //
+    // await Future.wait([_recorder.initialize()]);
 
     serviceAccount = ServiceAccount.fromString(
         '${(await rootBundle.loadString('assets/credentials.json'))}');
@@ -167,10 +167,25 @@ class _ChatState extends State<Chat> {
     });
   }
 
-  void handleStream() async {
-    log('entering handleStream');
+  void startRecord() async {
+    _recorderStatus = _recorder.status.listen((status) {
+      if (mounted)
+        setState(() {
+          _isRecording = status == SoundStreamStatus.Playing;
+        });
+    });
+
+    await Future.wait([_recorder.initialize()]);
+
     _recorder.start();
     _isRecording = true;
+  }
+
+  void handleStream() async {
+    log('entering handleStream');
+    // _recorder.start();
+    // _isRecording = true;
+    await startRecord();
 
     // Create and audio InputConfig
     //  See: https://cloud.google.com/dialogflow/es/docs/reference/rpc/google.cloud.dialogflow.v2#google.cloud.dialogflow.v2.InputAudioConfig
@@ -202,22 +217,16 @@ class _ChatState extends State<Chat> {
     );
 
     responseStream = dialogflow.client.streamingDetectIntent(request.stream);
-    String transcript;
-    String queryText;
-    String fulfillmentText;
+    var transcript;
+    var fulfillmentText;
 
     // Get the transcript and detectedIntent and show on screen
     responseStream.listen((data) {
       log('---- responseStream ----');
-      // if(data.recognitionResult.)
       setState(() {
         print(data);
         transcript = data.recognitionResult.transcript;
-        // log('transcript, $transcript');
-        queryText = data.queryResult.queryText;
-        // log('queryText, $queryText');
         fulfillmentText = data.queryResult.fulfillmentText;
-        // log('fulfillmentText, $fulfillmentText');
 
         if (fulfillmentText.isNotEmpty) {
           Intent_Message_Text intentMessageText = Intent_Message_Text(text: [data.queryResult.queryText]);
@@ -226,10 +235,8 @@ class _ChatState extends State<Chat> {
             'message': intentMessage,
             'isUserMessage': true,
           });
-          messages.add({
-            'message': data.queryResult.fulfillmentMessages.first,
-            'isUserMessage': false,
-          });
+          addMessage(data.queryResult.fulfillmentMessages.first);
+
         }
         if (transcript.isNotEmpty) {
           _textController.text = transcript;
@@ -239,14 +246,14 @@ class _ChatState extends State<Chat> {
       print('grpc error: $e');
     }, onDone: () {
       log('done');
-      log('transcript, $transcript');
+      log('transcript: $transcript');
       _textController.clear();
     });
   }
 
-  Future<void> stopRequest(StreamController<pbSession.StreamingDetectIntentRequest> request) async{
-    request.close();
-  }
+  // Future<void> stopRequest(StreamController<pbSession.StreamingDetectIntentRequest> request) async{
+  //   request.close();
+  // }
 
   void stopStream() async {
     _recorder.stop();
