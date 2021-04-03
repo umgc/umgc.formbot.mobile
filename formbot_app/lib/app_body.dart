@@ -1,4 +1,4 @@
-import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/v2/intent.pb.dart' as dfintent;
+import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/v2/intent.pb.dart';
 import 'package:flutter/material.dart';
 
 class AppBody extends StatelessWidget {
@@ -14,7 +14,7 @@ class AppBody extends StatelessWidget {
     return ListView.separated(
       itemBuilder: (context, i) {
         var obj = messages[messages.length - 1 - i];
-        dfintent.Intent_Message message = obj['message'];
+        Intent_Message message = obj['message'];
         bool isUserMessage = obj['isUserMessage'] ?? false;
         return Row(
           mainAxisAlignment:
@@ -40,8 +40,7 @@ class AppBody extends StatelessWidget {
 }
 
 class _MessageContainer extends StatelessWidget {
-  final dfintent.Intent_Message message;
-  // final dfintent.Intent intent;
+  final Intent_Message message;
   final bool isUserMessage;
 
   const _MessageContainer({
@@ -83,7 +82,7 @@ class _MessageContainer extends StatelessWidget {
 }
 
 class _CardContainer extends StatelessWidget {
-  final dfintent.Intent_Message_Card card;
+  final Intent_Message_Card card;
 
   const _CardContainer({
     Key key,
@@ -138,7 +137,7 @@ class _CardContainer extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         // padding: const EdgeInsets.symmetric(vertical: 5),
                         itemBuilder: (context, i) {
-                          dfintent.Intent_Message_Card_Button button = card.buttons[i];
+                          Intent_Message_Card_Button button = card.buttons[i];
                           // return FlatButton(
                           return ElevatedButton(
                             child: Text(button.text),
