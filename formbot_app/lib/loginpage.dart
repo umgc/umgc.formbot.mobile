@@ -3,12 +3,9 @@ It may contain significant bugs, or may not even perform the intended tasks, or 
 University of Maryland is not responsible for any shortcomings and the user is solely responsible for the use.*/
 
 import 'package:flutter/material.dart';
-
 import 'widgets/app_drawer.dart';
 import 'routes/routes.dart';
 import 'auth.dart';
-
-
 
 // This widget is the home page of the application. It is stateful.
 class LoginPage extends StatefulWidget {

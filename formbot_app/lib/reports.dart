@@ -1,17 +1,5 @@
 import 'dart:core';
-import 'dart:developer';
-import 'dart:io';
-import 'dart:async';
-import 'package:dialogflow_grpc/dialogflow_auth.dart';
-import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/v2/intent.pb.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:sound_stream/sound_stream.dart';
-import 'package:dialogflow_grpc/dialogflow_grpc.dart';
-import 'package:dialogflow_grpc/v2.dart';
-import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/v2/session.pb.dart'
-as pbSession;
-import 'app_body.dart';
 import 'auth.dart';
 import 'package:googleapis/drive/v3.dart' as ga;
 
@@ -49,26 +37,10 @@ class _ReportsState extends State<Reports> {
     setState(() {
       drive = ga.DriveApi(httpClient);
     });
+    // templateFolderId =
+    //     templateFolderSelection = await drive.files.get(folders.files.singleWhere((element) => element.name == value).id, $fields: "webViewLink");
+    // folders.files[0].name,
 
-  Widget dropdownButton = DropdownButton(
-    key: Key('reportsFolderDropdown'),
-    // hint: new Text("Select a Template"),
-    isExpanded: false,
-    value: folders.files[0].name,
-    items: folders.files.map((value) {
-      return new DropdownMenuItem(
-        value: value.name,
-        child: new Text(value.name),
-      );
-    }).toList(),
-    onChanged: (value) async {
-      templateFolderId =
-          templateFolderSelection = await drive.files.get(folders.files.singleWhere((element) => element.name == value).id, $fields: "webViewLink");
-      setState(() {
-
-      });
-    },
-  );
 
   }
 
@@ -87,7 +59,39 @@ class _ReportsState extends State<Reports> {
       }
     });
   }
-
+  Widget table = Table(
+    key: Key('reportsTable'),
+    children: [
+      TableRow(
+          children: [
+            Text("Report Name",textScaleFactor: 1.5,),
+            Text("Link",textScaleFactor: 1.5),
+            Text("Last Modified",textScaleFactor: 1.5),
+          ]
+      ),
+      TableRow(
+          children: [
+            Text("Report 1",textScaleFactor: 1.5),
+            Text("Open",textScaleFactor: 1.5),
+            Text("Mar 3, 2021",textScaleFactor: 1.5),
+          ]
+      ),
+      TableRow(
+          children: [
+            Text("Report 2",textScaleFactor: 1.5),
+            Text("Open",textScaleFactor: 1.5),
+            Text("Mar 3, 2021",textScaleFactor: 1.5),
+          ]
+      ),
+      TableRow(
+          children: [
+            Text("Report 3",textScaleFactor: 1.5),
+            Text("Open",textScaleFactor: 1.5),
+            Text("Mar 3, 2021",textScaleFactor: 1.5),
+          ]
+      ),
+    ],
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +125,15 @@ class _ReportsState extends State<Reports> {
           ]),
       body: Center(
         child: Column(children: <Widget>[
-
+          Row(
+            children: [Text(
+          'Reports',
+          style: TextStyle(
+              fontSize: 25,
+              color: Colors.black),
+            )],
+          ),
+          table
         ]
         ),
       ),
