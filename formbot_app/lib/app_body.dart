@@ -1,5 +1,6 @@
-import 'package:dialog_flowtter/dialog_flowtter.dart';
+import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/v2/intent.pb.dart';
 import 'package:flutter/material.dart';
+import 'package:formbot_app/routes/routes.dart';
 
 class AppBody extends StatelessWidget {
   final List<Map<String, dynamic>> messages;
@@ -14,7 +15,7 @@ class AppBody extends StatelessWidget {
     return ListView.separated(
       itemBuilder: (context, i) {
         var obj = messages[messages.length - 1 - i];
-        Message message = obj['message'];
+        Intent_Message message = obj['message'];
         bool isUserMessage = obj['isUserMessage'] ?? false;
         return Row(
           mainAxisAlignment:
@@ -40,14 +41,17 @@ class AppBody extends StatelessWidget {
 }
 
 class _MessageContainer extends StatelessWidget {
-  final Message message;
+  final Intent_Message message;
   final bool isUserMessage;
 
   const _MessageContainer({
     Key key,
-    @required this.message,
+
+    @required
+    this.message,
     this.isUserMessage = false,
   }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +59,10 @@ class _MessageContainer extends StatelessWidget {
       constraints: BoxConstraints(maxWidth: 250),
       child: LayoutBuilder(
         builder: (context, constrains) {
-          switch (message.type) {
-            case MessageType.card:
-              return _CardContainer(card: message.card);
-            case MessageType.text:
-            default:
-              return Container(
+          if (message.hasCard()) {
+            return _CardContainer(card: message.card);
+          }  else{
+            return Container(
                 decoration: BoxDecoration(
                   color: isUserMessage ? Colors.blue : Colors.orange,
                   borderRadius: BorderRadius.circular(20),
@@ -81,7 +83,7 @@ class _MessageContainer extends StatelessWidget {
 }
 
 class _CardContainer extends StatelessWidget {
-  final DialogCard card;
+  final Intent_Message_Card card;
 
   const _CardContainer({
     Key key,
@@ -136,15 +138,12 @@ class _CardContainer extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         // padding: const EdgeInsets.symmetric(vertical: 5),
                         itemBuilder: (context, i) {
-                          CardButton button = card.buttons[i];
-                          return FlatButton(
-                            textColor: Colors.white,
-                            color: Colors.blue,
-                            child: Text(button.text),
+                          Intent_Message_Card_Button button = card.buttons[i];
+                          // return FlatButton(
+                          return ElevatedButton(
+                            child: Text('View Reports'),
                             onPressed: () {
-                              Scaffold.of(context).showSnackBar(SnackBar(
-                                content: Text(button.postback),
-                              ));
+                              Navigator.popAndPushNamed(context, Routes.reports);
                             },
                           );
                         },

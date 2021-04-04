@@ -15,50 +15,49 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 4.0.0+4
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.7.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  dialog_flowtter: ^0.2.0
+  dialogflow_grpc: ^0.2.8
+  sound_stream: ^0.2.0
+  googleapis: any
+  google_sign_in: any
+  firebase_core: any
+  firebase_auth: any
+  shared_preferences: any
+  webview_flutter: any
+  # crypto: ^3.0.0
 
+  # The following adds the Cupertino Icons font for iOS style icons to your application.
+  cupertino_icons: ^1.0.2
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.1
+dependency_overrides:
+  crypto: '3.0.0'
+  archive: '2.0.13'
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   integration_test: ^1.0.2+2
-
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
+  flutter_driver:
+    sdk: flutter
+  test: any
 
 # The following section is specific to Flutter.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
+  # The following line ensures that the Material Icons font is included with your application,
+  # so that you can use the icons in the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  # The following section adds assets to your application
   assets:
     - assets/images/
-    - assets/dialog_flow_auth.json
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
+    - assets/credentials.json
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

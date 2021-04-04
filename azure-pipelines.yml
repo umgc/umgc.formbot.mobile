@@ -10,6 +10,26 @@ jobs:
     pool: 
       vmImage: 'macOS-latest'
     steps:
+      - task: DownloadSecureFile@1
+        inputs:
+          secureFile: 'credentials.json'
+      - task: DownloadSecureFile@1
+        inputs:
+          secureFile: 'google-services.json'
+      - task: CopyFiles@2
+        displayName: 'Secured Copy Credentials JSON'
+        inputs:
+          SourceFolder: '$(Agent.TempDirectory)'
+          Contents: '*.json'
+          TargetFolder: '$(System.DefaultWorkingDirectory)/formbot_app/assets'
+          OverWrite: true
+      - task: CopyFiles@2
+        displayName: 'Secured Copy Google Service JSON'
+        inputs:
+          SourceFolder: '$(Agent.TempDirectory)'
+          Contents: '*.json'
+          TargetFolder: '$(System.DefaultWorkingDirectory)/formbot_app/android/app'
+          OverWrite: true
       - task: FlutterInstall@0
         displayName: 'Install Flutter Tools'
         inputs:
